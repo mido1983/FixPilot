@@ -1,0 +1,104 @@
+= 4.0.0-rc1 =
+Release candidate: production safety, expanded repair rules, performance repair, conflict resolution, Update Guard Pro, opt-in AI Repair, release-readiness UI and CI/test/publication scaffolding.
+
+= 3.6.0 =
+AI Repair Assistant: explicit opt-in provider configuration, limited source context, JSON replacement proposals, exact-match validation and guarded apply through the normal backup/lint/smoke pipeline.
+
+= 3.5.0 =
+Update Guard Pro: pre-update plugin/theme filesystem snapshots, post-update regression checks, persistent history and manual rollback.
+
+= 3.4.0 =
+Conflict Resolution: evidence-backed culprit plans, reversible plugin quarantine through native WordPress activation APIs, and quarantine history.
+
+= 3.3.0 =
+Performance Repair: conservative duplicate/stale cron cleanup, runtime repair plan and explicit dependency-safe handling of cart fragments/object cache.
+
+= 3.2.0 =
+Expanded deterministic repair rules for nullable count/foreach/string operations and safe nullable array-offset reads.
+
+= 3.1.0 =
+Production Safety: repair locks/watchdog, disk/filesystem preflight, multisite/self-protection and emergency MU recovery bridge.
+
+= 3.0.0 =
+* Added Safe Config Repair runtime layer.
+* Added reversible production error-display guard.
+* Added reversible Heartbeat throttling to 60 seconds.
+* Added WooCommerce daily session-cleanup fallback when no native cleanup event is scheduled.
+* Added runtime config health and config repair rollback history.
+* Added guarded PHP Warning repair for simple undefined array-key reads.
+* Added Action Scheduler stuck-job recovery using QueueCleaner APIs.
+* Added WooCommerce product lookup consistency checks and repair candidates.
+* Added option ownership hints and per-plugin repair plans.
+
+= 2.7.0 =
+* Added reversible safe autoload repair for transient options.
+* Added Action Scheduler due-queue execution and capped old-history cleanup.
+* Added WooCommerce product lookup table regeneration using WooCommerce API.
+* Added PHP deprecated `${var}` string interpolation repair rule.
+* Added Action Scheduler backlog/history diagnostics.
+* Added autoload repair history and restore controls.
+
+= 2.6.0 =
+* Added Repair Center with actionable repair queue, confidence/risk/rollback metadata and Safe Repair All.
+* Added deterministic orphan postmeta/usermeta cleanup and overdue WP-Cron repair actions.
+* Unified repair dispatch and batch repair result logging.
+
+= 2.5.0 =
+* Added Action Center with a single prioritized queue across PHP, plugins, runtime, callbacks, performance and WooCommerce.
+* Added callback root-cause scoring with request-budget share, call count, cumulative/max time and source attribution.
+* Added direct navigation from Action Center items to the relevant diagnostic module.
+* Added Action Center and callback analysis to JSON export.
+* Extended semantic risk color labeling for Action Center severity and scores.
+
+= 2.4.0 =
+* Hook/callback runtime profiler with source attribution.
+* Before/after regression comparison.
+* Recommendation Engine.
+* Semantic red/orange/yellow/green/gray metric badges across admin UI.
+* Extended JSON diagnostics.
+
+WP FixPilot 2.3.0
+- Added runtime attribution for slow SQL and outbound HTTP calls.
+- Added per-plugin measured runtime-cost scoring.
+- Added WooCommerce product/category request profiling and variation hotspot analysis.
+- Added attributed diagnostics to JSON export and admin UI.
+
+= 2.2.0 =
+* Added signed deep Request Profiler for home, REST, AJAX, shop, cart and checkout.
+* Added SQL timing, slow-query inventory and repeated-query/N+1 heuristics.
+* Added outbound HTTP call timing and host inventory.
+* Added request peak-memory metrics and response timing.
+* Added REST/AJAX registry inventory.
+* Added prioritized optimization-plan generator using scan + profiler evidence.
+* Expanded JSON export with request profiles and optimization plan.
+
+= 2.1.0 =
+* Added Conflict Profiler using private loopback probes that exclude one plugin at a time without disabling it for visitors.
+* Added automatic Update Guard baseline/comparison for standard single-plugin updates.
+* Added ReturnTypeWillChange high-confidence compatibility repair.
+* Added guarded optional-before-required repair for simple literal defaults only.
+* Added PHP syntax validation before post-repair loopback validation when exec is available.
+* Added backup browser and explicit manual rollback with path validation.
+* Hardened backup restore paths to plugin/theme PHP files only.
+* Expanded JSON export with conflict profile and Update Guard history.
+
+= 2.0.0 =
+* Added fatal-error monitoring.
+* Added high-confidence PHP 8.2 dynamic-property repair rule.
+* Added file backup, post-repair loopback validation and automatic rollback.
+* Added per-browser Safe Mode via an MU loader.
+* Added plugin capability-overlap analysis and runtime-issue risk scoring.
+* Added public endpoint benchmark for WordPress/WooCommerce flows.
+* Added WooCommerce HPOS, Action Scheduler and session diagnostics.
+* Expanded database inspector with autoload, revisions and orphan metadata.
+* Added WooCommerce session cleanup and bounded revision cleanup.
+* Expanded export and repair history.
+
+= 1.1.0 =
+* Added dedicated diagnostic sections.
+
+= 1.0.1 =
+* Added top-level menu and Settings links.
+
+= 1.0.0 =
+* Initial release.

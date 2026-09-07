@@ -1,0 +1,14 @@
+<?php
+if(!defined('ABSPATH'))exit;
+class WP_FixPilot_Repair_Rule_Library {
+ public static function rules(){return array('count_null'=>array('confidence'=>95,'label'=>'Cast simple count() argument to array'),'foreach_null'=>array('confidence'=>95,'label'=>'Cast simple foreach argument to array'),'string_null'=>array('confidence'=>94,'label'=>'Cast simple nullable string argument'),'array_offset_null'=>array('confidence'=>92,'label'=>'Guard array offset on nullable variable'));}
+ public static function classify($issue){$m=(string)(isset($issue['message'])?$issue['message']:'');if(preg_match('/count\(\): Argument #1 .* must be of type Countable\\|array, null given/i',$m))return array('type'=>'count_null','confidence'=>95);if(preg_match('/foreach\(\) argument must be of type array\\|object, null given/i',$m))return array('type'=>'foreach_null','confidence'=>95);if(preg_match('/(trim|strlen|strtolower|strtoupper|htmlspecialchars|esc_html|esc_attr)\(\): Passing null to parameter/i',$m,$x))return array('type'=>'string_null','function'=>strtolower($x[1]),'confidence'=>94);if(preg_match('/Trying to access array offset on value of type null/i',$m))return array('type'=>'array_offset_null','confidence'=>92);return false;}
+ public static function repair($issue,$fix){$t=WP_FixPilot_Repair_Engine::read_target($issue);if(is_wp_error($t))return $t;$code=$t['code'];$lines=preg_split('/\R/',$code);$i=max(0,(int)$issue['line']-1);if(!isset($lines[$i]))return new WP_Error('fixpilot_line_missing','Reported line no longer exists.');$old=$lines[$i];$new=$old;
+  if('count_null'===$fix['type'])$new=preg_replace('/\bcount\(\s*(\$[A-Za-z_][A-Za-z0-9_]*)\s*\)/','count((array) $1)',$old,1);
+  elseif('foreach_null'===$fix['type'])$new=preg_replace('/\bforeach\s*\(\s*(\$[A-Za-z_][A-Za-z0-9_]*)\s+as\s+/','foreach ((array) $1 as ',$old,1);
+  elseif('string_null'===$fix['type'])$new=preg_replace('/\b'.preg_quote($fix['function'],'/').'\(\s*(\$[A-Za-z_][A-Za-z0-9_]*)\s*\)/',$fix['function'].'((string) $1)',$old,1);
+  elseif('array_offset_null'===$fix['type']){if(preg_match('/^(\s*\$[A-Za-z_][A-Za-z0-9_]*\s*=\s*)(\$[A-Za-z_][A-Za-z0-9_]*\[[^\]]+\])(\s*;.*)$/',$old,$m))$new=$m[1].'('.$m[2].' ?? null)'.$m[3];}
+  if($new===$old)return new WP_Error('fixpilot_rule_not_safe','The reported expression is not simple enough for deterministic repair.');$lines[$i]=$new;$newcode=implode("\n",$lines);if(substr($code,-1)==="\n")$newcode.="\n";return WP_FixPilot_Repair_Engine::commit($issue,$fix,$t['file'],$code,$newcode);
+ }
+ public static function summary(){global $wpdb;$table=$wpdb->prefix.'fixpilot_issues';$rows=$wpdb->get_results("SELECT id,message,file,line FROM {$table} ORDER BY last_seen DESC LIMIT 500",ARRAY_A);$out=array();foreach($rows as $r){$f=self::classify($r);if($f)$out[$f['type']]=isset($out[$f['type']])?$out[$f['type']]+1:1;}return $out;}
+}

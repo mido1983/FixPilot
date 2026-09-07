@@ -1,0 +1,18 @@
+# Release checklist
+- [x] PHP syntax lint on build environment
+- [x] JavaScript syntax check
+- [x] ZIP integrity and root folder layout
+- [x] WordPress 7.1 metadata
+- [x] WooCommerce 11.1 metadata
+- [x] HPOS / Blocks declarations
+- [x] Security: capability + nonce on admin mutations
+- [x] Self-repair protection and emergency recovery bridge
+- [ ] Run official WordPress Plugin Check inside a real WordPress install
+- [ ] Run PHPCS WordPress Coding Standards (requires dev dependencies)
+- [ ] Run PHPStan with WordPress stubs
+- [ ] Run PHPUnit WordPress integration suite
+- [ ] Run browser/admin UI tests against WordPress 6.5, 7.0, 7.1
+- [ ] Run PHP matrix 7.4 through 8.4 against real WordPress
+- [ ] Run WooCommerce 8.x through 11.1, HPOS on/off, Blocks checkout
+- [ ] Multisite/network-admin acceptance test
+- [ ] RTL/Hebrew/accessibility acceptance test
